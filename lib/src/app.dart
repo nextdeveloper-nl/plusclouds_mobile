@@ -5,17 +5,12 @@ import 'package:plusclouds/src/home/home_screen.dart';
 import 'package:plusclouds/src/home/second_screen.dart';
 import 'package:plusclouds/src/provider/app_provider.dart';
 import 'package:provider/provider.dart';
-import 'settings/settings_controller.dart';
-import 'settings/settings_view.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
-    required this.settingsController,
   });
-
-  final SettingsController settingsController;
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +62,6 @@ class MyApp extends StatelessWidget {
               settings: routeSettings,
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
                   case HomeScreen.routeName:
                     return const HomeScreen();
                   case SeconScreen.routeName:

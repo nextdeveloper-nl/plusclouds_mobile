@@ -1,6 +1,6 @@
 # plusclouds
 
-A new Flutter project.
+MVVM type project
 
 ## Getting Started
 

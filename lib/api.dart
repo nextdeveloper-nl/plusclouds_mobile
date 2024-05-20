@@ -216,7 +216,19 @@ class API {
     }
   }
 
-  /// Get a list of customers
+  /// Get a options
+  Future<dynamic> getOptions(String endpoint) async {
+    try {
+      final response = await options(endpoint);
+      debugPrint("$debugResponse getOptions() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getOptions() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get a list of accounts
   Future<dynamic> getAccounts() async {
     try {
       final response = await get("/iam/accounts");
@@ -228,14 +240,134 @@ class API {
     }
   }
 
-  /// Get a options
-  Future<dynamic> getOptions(String endpoint) async {
+  /// Get a list of users
+  Future<dynamic> getUsers() async {
     try {
-      final response = await options(endpoint);
-      debugPrint("$debugResponse getOptions() Response:  ${response.toString()}");
+      final response = await get("/iam/users");
+      debugPrint("$debugResponse getUsers() Response:  ${response.toString()}");
       return response;
     } catch (error) {
-      debugPrint("$debugError Rethrowing getOptions() Error ... ${error.toString()}");
+      debugPrint("$debugError Rethrowing getUsers() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Crm accounts
+  Future<dynamic> getCRMAccounts() async {
+    try {
+      final response = await get("/crm/accounts");
+      debugPrint("$debugResponse getCRMAccounts() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getCRMAccounts() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Crm Users
+  Future<dynamic> getCRMUsers() async {
+    try {
+      final response = await get("/crm/users");
+      debugPrint("$debugResponse getCRMUsers() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getCRMUsers() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get CRM Account Managers
+  Future<dynamic> getCRMAccountManagers() async {
+    try {
+      final response = await get("/crm/account-managers");
+      debugPrint("$debugResponse getCRMAccountManagers() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getCRMAccountManagers() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get CRM Opportunities
+  Future<dynamic> getCRMOpportunities() async {
+    try {
+      final response = await get("/crm/opportunities");
+      debugPrint("$debugResponse getCRMOpportunities() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getCRMOpportunities() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get CRM Quotes
+  Future<dynamic> getCRMQuotes() async {
+    try {
+      final response = await get("/crm/quotes");
+      debugPrint("$debugResponse getCRMQuotes() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getCRMQuotes() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Marketplace Markets
+  Future<dynamic> getMarketplaceMarkets() async {
+    try {
+      final response = await get("/marketplace/markets");
+      debugPrint("$debugResponse getMarketplaceMarkets() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getMarketplaceMarkets() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Marketplace Products
+  Future<dynamic> getMarketplaceProducts() async {
+    try {
+      final response = await get("/marketplace/products");
+      debugPrint("$debugResponse getMarketplaceMarkets() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getMarketplaceMarkets() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Marketplace Product Catalogs
+  Future<dynamic> getMarketplaceProductCatalogs() async {
+    try {
+      final response = await get("/marketplace/product-catalogs");
+      debugPrint("$debugResponse getMarketplaceProductCatalogs() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getMarketplaceProductCatalogs() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Marketplace Subscriptions
+  Future<dynamic> getMarketplaceSubscriptions() async {
+    try {
+      final response = await get("/marketplace/subscriptions");
+      debugPrint("$debugResponse getMarketplaceSubscriptions() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getMarketplaceSubscriptions() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Support Tickets
+  Future<dynamic> getSupportTickets() async {
+    try {
+      final response = await get("/support/tickets");
+      debugPrint("$debugResponse getSupportTickets() Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getSupportTickets() Error ... ${error.toString()}");
       rethrow;
     }
   }

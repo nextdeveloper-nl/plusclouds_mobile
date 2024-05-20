@@ -18,6 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+        //TODO: main menu
+        backgroundColor: Color(0xFF252c34),
         leading: Container(),
         actions: [
           IconButton(

@@ -69,4 +69,21 @@ class AppStorage {
     debugPrint("$debugPreferencesWrite Storing user_id : $userId");
     _sharedPrefs.setString("user_id", userId);
   }
+
+  /// Retrieves the stored csrf.
+  ///
+  /// Returns the csrf if it exists, or an empty string if not found.
+  String get csrf {
+    debugPrint("$debugPreferencesRead retriving csrf : ${_sharedPrefs.getString("csrf") ?? ""}");
+    return _sharedPrefs.getString("csrf") ?? "";
+  }
+
+  /// Stores the provided user ID.
+  ///
+  /// This method sets the "csrf" key with the provided csrf in
+  /// the app's local storage using shared preferences.
+  set csrf(String csrf) {
+    debugPrint("$debugPreferencesWrite Storing csrf : $csrf");
+    _sharedPrefs.setString("csrf", csrf);
+  }
 }

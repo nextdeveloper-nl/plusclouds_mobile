@@ -133,6 +133,32 @@ class API {
     }
   }
 
+  /// OAuth Register-user request
+  Future<dynamic> oAuthRegisterUser(String email) async {
+    try {
+      final response = await post("/register", {
+        "email": email,
+      });
+      debugPrint("$debugResponse oAuthRegisterUser Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing oAuthRegisterUser Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// OAuth Resend-verification request
+  Future<dynamic> oAuthResendVerification(String email, String csrf) async {
+    try {
+      final response = await post("/otp/email", {"email": email, "csrf": csrf});
+      debugPrint("$debugResponse oAuthResendVerification Response:  ${response.toString()}");
+      return response;
+    } catch (error) {
+      debugPrint("$debugError Rethrowing oAuthResendVerification Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
   /// OAuth password token
   Future<dynamic> oAuthPasswordToken(String username, String password, String grantType) async {
     try {
@@ -152,6 +178,7 @@ class API {
     try {
       final response = await get("/security/csrf");
       debugPrint("$debugResponse oAuthCSRF() Response:  ${response.toString()}");
+      AppStorage().csrf = response.toString();
       return response;
     } catch (error) {
       debugPrint("$debugError Rethrowing oAuthCSRF() Error ... ${error.toString()}");
@@ -163,9 +190,14 @@ class API {
   Future<dynamic> oAuthGetLogins(String email) async {
     try {
       final csrf = await oAuthCSRF();
-      final response = await get("/get-logins?email=$email&client_id=$clientId&csrf=$csrf");
+      final response = await get("/getLogins?email=$email&csrf=$csrf");
       debugPrint("$debugResponse oAuthGetLogins Response:  ${response.toString()}");
-      return response;
+      //TODO: FAKE RESPONSE FOR DEBUGGING
+
+      debugPrint("$debugResponse oAuthGetLogins Response NULL RETURNING FAKE RESPONSE FOR DEBUG: {'logins':['OneTimeEmail']}");
+      return '{"logins":["OneTimeEmail"]}';
+
+      //  return [response, csrf];
     } catch (error) {
       debugPrint("$debugError Rethrowing oAuthGetLogins Error ... ${error.toString()}");
       rethrow;
@@ -232,8 +264,8 @@ class API {
   Future<dynamic> getAccounts() async {
     try {
       final response = await get("/iam/accounts");
-      debugPrint("$debugResponse getAccounts() Response:  ${response.toString()}");
-      return response;
+      debugPrint("$debugResponse getAccounts() Response:  ${response['data'].toString()}");
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getAccounts() Error ... ${error.toString()}");
       rethrow;
@@ -245,7 +277,7 @@ class API {
     try {
       final response = await get("/iam/users");
       debugPrint("$debugResponse getUsers() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getUsers() Error ... ${error.toString()}");
       rethrow;
@@ -257,7 +289,7 @@ class API {
     try {
       final response = await get("/crm/accounts");
       debugPrint("$debugResponse getCRMAccounts() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getCRMAccounts() Error ... ${error.toString()}");
       rethrow;
@@ -269,7 +301,7 @@ class API {
     try {
       final response = await get("/crm/users");
       debugPrint("$debugResponse getCRMUsers() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getCRMUsers() Error ... ${error.toString()}");
       rethrow;
@@ -281,7 +313,7 @@ class API {
     try {
       final response = await get("/crm/account-managers");
       debugPrint("$debugResponse getCRMAccountManagers() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getCRMAccountManagers() Error ... ${error.toString()}");
       rethrow;
@@ -293,7 +325,7 @@ class API {
     try {
       final response = await get("/crm/opportunities");
       debugPrint("$debugResponse getCRMOpportunities() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getCRMOpportunities() Error ... ${error.toString()}");
       rethrow;
@@ -305,9 +337,21 @@ class API {
     try {
       final response = await get("/crm/quotes");
       debugPrint("$debugResponse getCRMQuotes() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getCRMQuotes() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Marketplace Markets
+  Future<dynamic> getMarketplaceDashboard() async {
+    try {
+      final response = await get("/marketplace/dashboard");
+      debugPrint("$debugResponse getMarketplaceDashboard() Response:  ${response.toString()}");
+      return response['data'];
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getMarketplaceDashboard() Error ... ${error.toString()}");
       rethrow;
     }
   }
@@ -317,7 +361,7 @@ class API {
     try {
       final response = await get("/marketplace/markets");
       debugPrint("$debugResponse getMarketplaceMarkets() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getMarketplaceMarkets() Error ... ${error.toString()}");
       rethrow;
@@ -329,7 +373,7 @@ class API {
     try {
       final response = await get("/marketplace/products");
       debugPrint("$debugResponse getMarketplaceMarkets() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getMarketplaceMarkets() Error ... ${error.toString()}");
       rethrow;
@@ -341,7 +385,7 @@ class API {
     try {
       final response = await get("/marketplace/product-catalogs");
       debugPrint("$debugResponse getMarketplaceProductCatalogs() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getMarketplaceProductCatalogs() Error ... ${error.toString()}");
       rethrow;
@@ -353,7 +397,7 @@ class API {
     try {
       final response = await get("/marketplace/subscriptions");
       debugPrint("$debugResponse getMarketplaceSubscriptions() Response:  ${response.toString()}");
-      return response;
+      return response['data'];
     } catch (error) {
       debugPrint("$debugError Rethrowing getMarketplaceSubscriptions() Error ... ${error.toString()}");
       rethrow;

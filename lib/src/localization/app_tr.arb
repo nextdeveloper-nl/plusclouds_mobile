@@ -1,0 +1,9 @@
+{
+    "appTitle": "Plusclouds",
+    "@appTitle": {
+      "description": "Uygulama İsmi"
+    },
+    "en_language":"İngilizce",
+    "tr_language":"Türkçe",
+    "screenVerificationRemainingTimeText":"Kalan süre:"
+  }

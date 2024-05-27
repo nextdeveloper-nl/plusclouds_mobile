@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:plusclouds/constants.dart';
+import 'package:plusclouds/src/auth/auth_screen.dart';
 import 'package:plusclouds/src/home/home_screen.dart';
-import 'package:plusclouds/src/home/second_screen.dart';
 import 'package:plusclouds/src/provider/app_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
           // background.
           restorationScopeId: 'app',
           debugShowCheckedModeBanner: false,
-          initialRoute: HomeScreen.routeName,
+          initialRoute: appProvider.initialRoute,
           // Provide the generated AppLocalizations to the MaterialApp. This
           // allows descendant Widgets to display the correct translations
           // depending on the user's locale.
@@ -47,27 +48,36 @@ class MyApp extends StatelessWidget {
           //
           // The appTitle is defined in .arb files found in the localization
           // directory.
-          onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
+          onGenerateTitle: (BuildContext context) => AppLocalizations.of(context).appTitle,
 
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData(),
-          darkTheme: ThemeData.dark(),
-          themeMode: appProvider.themeMode,
+          theme: ThemeData.light(useMaterial3: true).copyWith(
+            primaryColor: appPrimaryColor,
+            scaffoldBackgroundColor: appSecondaryColor,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: appPrimaryColor,
+              foregroundColor: appSecondaryColor,
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: appPrimaryColor, foregroundColor: appSecondaryColor, minimumSize: Size(MediaQuery.of(context).size.width * 0.7, 60)),
+            ),
+          ),
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
-            return MaterialPageRoute<void>(
+            return PageRouteBuilder<void>(
               settings: routeSettings,
-              builder: (BuildContext context) {
+              pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
                 switch (routeSettings.name) {
                   case HomeScreen.routeName:
-                    return const HomeScreen();
-                  case SeconScreen.routeName:
-                    return const SeconScreen();
+                    return FadeTransition(opacity: animation, child: const HomeScreen());
+                  case AuthScreen.routeName:
+                    return FadeTransition(opacity: animation, child: const AuthScreen());
                   default:
-                    return const HomeScreen();
+                    return const AuthScreen();
                 }
               },
             );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plusclouds/constants.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:plusclouds/src/provider/app_provider.dart';
+import 'package:plusclouds/src/utils/drawer/sidebar.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,14 +14,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
+    final appProvider = Provider.of<AppProvider>(context, listen: true);
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        //TODO: main menu
-        backgroundColor: Color(0xFF252c34),
-        leading: Container(),
+        backgroundColor: const Color(0xFF252c34),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: Image.asset("assets/splash.png"),
+        ),
+        title: const Text(
+          'Plusclouds',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: false,
         actions: [
           IconButton(
             onPressed: () {
@@ -30,130 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      drawer: Drawer(
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ExpansionTile(
-                    title: const Text(
-                      'IAM',
-                      style: drawerMainMenuTextStyle,
-                    ),
-                    children: [
-                      ListTile(
-                        title: const Text('Accounts'),
-                        leading: const Icon(Icons.account_circle),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('Users'),
-                        leading: const Icon(Icons.people),
-                        onTap: () {},
-                      ),
-                    ]),
-                ExpansionTile(
-                    title: const Text(
-                      'CRM',
-                      style: drawerMainMenuTextStyle,
-                    ),
-                    children: [
-                      ListTile(
-                        title: const Text('Accounts'),
-                        leading: const Icon(Icons.account_circle),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('User'),
-                        leading: const Icon(Icons.people),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('Accounts Managers'),
-                        leading: const Icon(Icons.manage_accounts),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('Opportunities'),
-                        leading: const Icon(Icons.money),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('Quotes'),
-                        leading: const Icon(Icons.request_quote),
-                        onTap: () {},
-                      ),
-                    ]),
-                ExpansionTile(
-                    title: const Text(
-                      'Marketplace',
-                      style: drawerMainMenuTextStyle,
-                    ),
-                    children: [
-                      ListTile(
-                        title: const Text('Dashboard'),
-                        leading: const Icon(Icons.dashboard),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('Markets'),
-                        leading: const Icon(Icons.shopping_cart),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('Products'),
-                        leading: const Icon(Icons.shopping_bag),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('Product Catalogs'),
-                        leading: const Icon(Icons.list),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        title: const Text('Subscriptions'),
-                        leading: const Icon(Icons.subscriptions),
-                        onTap: () {},
-                      ),
-                    ]),
-                ExpansionTile(
-                    title: const Text(
-                      'Support',
-                      style: drawerMainMenuTextStyle,
-                    ),
-                    children: [
-                      ListTile(
-                        title: const Text('Tickets'),
-                        leading: const Icon(Icons.support_agent),
-                        onTap: () {},
-                      ),
-                    ]),
-                ListTile(
-                  title: const Text(
-                    'Partnership',
-                    style: drawerMainMenuTextStyle,
-                  ),
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Provider.of<AppProvider>(context, listen: false).changeTheme();
-                //Navigator.pushNamed(context, '/second');
-              },
-              child: const Text('Change Theme'),
-            ),
-          ),
-        ],
-      ),
+      drawer: const AppDrawer(),
+      body: appProvider.homeBody.animate().fade(duration: const Duration(milliseconds: 500)),
     );
   }
 }

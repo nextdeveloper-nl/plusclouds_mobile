@@ -23,6 +23,7 @@ dependencies:
   pinput: ^2.2.31
   flutter_animate: ^4.5.0
   webview_flutter: ^4.5.0
+  flutter_html: ^3.0.0-beta.2
 
 dev_dependencies:
   flutter_test:

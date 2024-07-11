@@ -3,7 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:plusclouds/constants.dart';
 import 'package:plusclouds/src/auth/auth_screen.dart';
+import 'package:plusclouds/src/detail_pages/post_details.dart';
+import 'package:plusclouds/src/home/blogs_screen.dart';
 import 'package:plusclouds/src/home/home_screen.dart';
+import 'package:plusclouds/src/detail_pages/iam_accounts_details.dart';
 import 'package:plusclouds/src/provider/app_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -55,10 +58,12 @@ class MyApp extends StatelessWidget {
           // SettingsController to display the correct theme.
           theme: ThemeData.light(useMaterial3: true).copyWith(
             primaryColor: appPrimaryColor,
-            scaffoldBackgroundColor: appSecondaryColor,
+            canvasColor: appPrimaryColor,
+            colorScheme: ColorScheme.fromSwatch(),
+            scaffoldBackgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(
-              backgroundColor: appPrimaryColor,
-              foregroundColor: appSecondaryColor,
+              backgroundColor: appSecondaryColor,
+              foregroundColor: appPrimaryColor,
             ),
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
@@ -76,6 +81,12 @@ class MyApp extends StatelessWidget {
                     return FadeTransition(opacity: animation, child: const HomeScreen());
                   case AuthScreen.routeName:
                     return FadeTransition(opacity: animation, child: const AuthScreen());
+                  case UserDetailsPage.routeName:
+                    return FadeTransition(opacity: animation, child: const UserDetailsPage());
+                  case PostDetails.routeName:
+                    return FadeTransition(opacity: animation, child: const PostDetails());
+                  case ScreenBlog.routeName:
+                    return FadeTransition(opacity: animation, child: const ScreenBlog());
                   default:
                     return const AuthScreen();
                 }

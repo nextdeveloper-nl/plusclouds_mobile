@@ -10,6 +10,8 @@ const SizedBox mSizedBox = SizedBox(height: 30);
 const SizedBox lSizedBox = SizedBox(height: 40);
 const clientId = "d5ac4b2d-797d-4a49-86c2-361b9484b621";
 const clientSecret = "1KSSZoVrZRmZ3u5TvoaZOV8AwnG2djyjtqlQVAO2";
+const authClientId = "8cd549d2-06cb-4a6c-be89-57ac08a88b13";
+const authClientSecret = "9GCY97ZRPFvp2ol2j004K1dqCuRrgFK1Z3m3CJz2";
 const grantType = "otp_email";
 const iamTeamAccountId = "461d4eb1-1c18-11ee-b8af-c2ea10853885";
 const debugError = "❌";
@@ -18,8 +20,8 @@ const debugRequestSent = "🛜";
 const debugResponse = "🧾";
 const debugPreferencesWrite = "🖌️";
 const debugPreferencesRead = "👓";
-const appPrimaryColor = Color(0xFF252c34);
-const appSecondaryColor = Color(0xFFf9f9f9);
+const appSecondaryColor = Color(0xFF252c34);
+const appPrimaryColor = Color(0xFFf9f9f9);
 
 ///APP SPECIFIC CONSTANTS
 const containerRadius = 30.0;

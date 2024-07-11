@@ -1,12 +1,12 @@
-//app provider
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:plusclouds/api.dart';
 import 'package:plusclouds/constants.dart';
 import 'package:plusclouds/src/auth/auth_screen.dart';
+import 'package:plusclouds/src/home/blogs_screen.dart';
 import 'package:plusclouds/src/home/home_screen.dart';
-import 'package:plusclouds/src/home/plusclouds_web.dart';
+import 'package:plusclouds/src/detail_pages/iam_accounts_details.dart';
 import 'package:plusclouds/src/utils/preferences/app_storage.dart';
 
 //create a default provider class which holds functions and variables that can be accessed by other classes
@@ -14,7 +14,8 @@ class AppProvider with ChangeNotifier {
   //create a variable to hold the current theme
   ThemeMode themeMode = ThemeMode.system;
   String initialRoute = AppStorage().accessToken == "" ? AuthScreen.routeName : HomeScreen.routeName;
-  Widget homeBody = const PluscloudsWeb();
+  Widget homeBody = const ScreenBlog();
+  final boxShadowColor = Colors.blue.shade900;
 
   ///function to change the theme
   void changeTheme() {
@@ -36,10 +37,32 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(UserDetailsPage.routeName, arguments: response[index]);
+              },
+              leading: const Icon(Icons.account_circle, color: Colors.white),
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['description']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -62,10 +85,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -79,6 +120,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the CRM Accounts from the API and update the homeBody
   void crmAccountsHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -88,10 +130,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['iam_account_id']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['iam_account_id'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -104,6 +164,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the CRM users from the API and update the homeBody
   void crmUserHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -113,10 +174,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['iam_user_id']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['iam_user_id'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -129,6 +208,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the CRM Accounts Managers from the API and update the homeBody
   void crmAccountsManagersHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -138,10 +218,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -154,6 +252,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the CRM Opportunities from the API and update the homeBody
   void crmOpportunitiesHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -163,10 +262,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -179,6 +296,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the CRM Quaotes from the API and update the homeBody
   void crmQuotesHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -188,10 +306,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -204,6 +340,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the Marketplace Dashboard from the API and update the homeBody
   void marketplaceDashboardHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -213,10 +350,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -229,6 +384,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the MarketPlace Markets from the API and update the homeBody
   void marketplaceMarketsHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -238,10 +394,29 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name'] ?? "No Name"),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              onTap: () {},
+              title: Text(
+                response[index]['name'] ?? "No Name",
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -254,6 +429,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the MarketPlace Products from the API and update the homeBody
   void marketplaceProductsHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -263,10 +439,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -279,6 +473,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the MarketPlace Product Catalogs from the API and update the homeBody
   void marketplaceProductCatalogsHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -288,10 +483,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -304,6 +517,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the MarketPlace Subscriptions from the API and update the homeBody
   void marketplaceSubscriptionsHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -313,10 +527,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['name']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['name'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -329,6 +561,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ///Function to get the Support Tickets from the API and update the homeBody
   void supportTicketsHomeBody(BuildContext context) async {
     Navigator.of(context).pop();
     homeBody = Center(child: loadingAnimation);
@@ -338,10 +571,28 @@ class AppProvider with ChangeNotifier {
       homeBody = ListView.builder(
         itemCount: response.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(response[index]['subject']),
-            subtitle: Text(response[index]['id']),
-          ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut);
+          return Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade700,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: const Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(
+                response[index]['subject'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(response[index]['id']),
+            ).animate(delay: Duration(milliseconds: index * 100)).slideX(begin: -1.0, end: 0.0, curve: Curves.easeInOut),
+          );
         },
       );
     } catch (error) {
@@ -354,7 +605,16 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void changeHomeBody(BuildContext context) {
+  void blogPostsHomeBody(BuildContext context) {
+    Navigator.of(context).pop();
+    homeBody = const ScreenBlog();
+    notifyListeners();
+  }
+
+  ///Function to get the partnership from the API and update the homeBody
+  void partnershipHomeBody(BuildContext context) {
+    Navigator.of(context).pop();
+    homeBody = const Center(child: Text('Partnership'));
     notifyListeners();
   }
 

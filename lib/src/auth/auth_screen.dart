@@ -225,7 +225,7 @@ class _AuthScreenState extends State<AuthScreen> {
         _isSendingRequest = false;
         _isVerifying = false;
       });
-      AppStorage().accessToken = "8423ab7b-cc17-4efc-9266-6891fc8a82ff";
+      AppStorage().accessToken = "e82b5ae2-f02e-4d38-bb50-f2cd4896a7ac";
       Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
       return;
       // }
@@ -297,7 +297,7 @@ class _AuthScreenState extends State<AuthScreen> {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: const TextStyle(fontSize: 20, color: Color.fromRGBO(48, 182, 86, 1), fontWeight: FontWeight.w600),
+      textStyle: const TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
         border: Border.all(color: const Color.fromRGBO(234, 239, 243, 1)),
         borderRadius: BorderRadius.circular(20),
@@ -305,13 +305,13 @@ class _AuthScreenState extends State<AuthScreen> {
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: const Color.fromARGB(255, 28, 171, 95)),
+      border: Border.all(color: Colors.black),
       borderRadius: BorderRadius.circular(8),
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        color: const Color.fromRGBO(234, 239, 243, 1),
+        color: appSecondaryColor,
       ),
     );
     return Scaffold(
@@ -340,21 +340,21 @@ class _AuthScreenState extends State<AuthScreen> {
                     mSizedBox,
                     const Text(
                       "WELCOME",
-                      style: TextStyle(fontSize: 20, color: appPrimaryColor, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
                     )
                         .animate(delay: const Duration(milliseconds: 2500))
                         .fade(duration: const Duration(milliseconds: 2500), begin: 0, end: 1)
                         .slideY(duration: const Duration(milliseconds: 3000), begin: -2, end: 0.0),
                     const Text(
                       "to",
-                      style: TextStyle(fontSize: 25, color: appPrimaryColor),
+                      style: TextStyle(fontSize: 25, color: Colors.black),
                     )
                         .animate(delay: const Duration(milliseconds: 2000))
                         .fade(duration: const Duration(milliseconds: 2500), begin: 0, end: 1)
                         .slideY(duration: const Duration(milliseconds: 3000), begin: -3, end: 0.0),
                     const Text(
                       "PLUSCLOUDS",
-                      style: TextStyle(fontSize: 30, color: appPrimaryColor, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
                     )
                         .animate(delay: const Duration(milliseconds: 1500))
                         .fade(duration: const Duration(milliseconds: 2500), begin: 0, end: 1)
@@ -364,9 +364,11 @@ class _AuthScreenState extends State<AuthScreen> {
                       padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1),
                       child: TextField(
                         controller: _emailController,
+                        style: const TextStyle(fontSize: 16, color: Colors.black),
                         decoration: const InputDecoration(
                           labelText: "Email",
-                          border: UnderlineInputBorder(),
+                          focusColor: Colors.white,
+                          border: OutlineInputBorder(),
                         ),
                       ),
                     )
@@ -402,13 +404,14 @@ class _AuthScreenState extends State<AuthScreen> {
                           const Text(
                             "WELCOME",
                             textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           mSizedBox,
                           Text(
                             "Enter the 6-digit code sent to your email: $email",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
-                              color: Colors.grey[700],
+                              color: Colors.white54,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -452,7 +455,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                           }
                                         }
                                       },
-                                      child: const Text("Resend Verification Code")),
+                                      child: const Text(
+                                        "Resend Verification Code",
+                                        style: TextStyle(color: Colors.white),
+                                      )),
                                 ],
                               ),
                               secondChild: Row(
@@ -463,9 +469,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                     child: Text(
                                       '${context.l10n.screenVerificationRemainingTimeText} $_resendCounter',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 14,
-                                        color: Colors.grey[700],
+                                        color: Colors.white54,
                                       ),
                                     ),
                                   ),

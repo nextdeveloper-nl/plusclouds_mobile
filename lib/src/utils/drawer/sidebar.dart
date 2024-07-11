@@ -125,6 +125,20 @@ class _AppDrawerState extends State<AppDrawer> {
                   ]),
               ExpansionTile(
                   title: const Text(
+                    'Blogs',
+                    style: drawerMainMenuTextStyle,
+                  ),
+                  children: [
+                    ListTile(
+                      title: const Text('Posts'),
+                      leading: const Icon(Icons.podcasts),
+                      onTap: () {
+                        Provider.of<AppProvider>(context, listen: false).blogPostsHomeBody(context);
+                      },
+                    ),
+                  ]),
+              ExpansionTile(
+                  title: const Text(
                     'Support',
                     style: drawerMainMenuTextStyle,
                   ),
@@ -143,7 +157,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   style: drawerMainMenuTextStyle,
                 ),
                 onTap: () {
-                  Provider.of<AppProvider>(context, listen: false).changeHomeBody(context);
+                  Provider.of<AppProvider>(context, listen: false).partnershipHomeBody(context);
                 },
               ),
               ListTile(

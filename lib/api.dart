@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:plusclouds/constants.dart';
+import 'package:plusclouds/src/models/blog_model.dart';
 import 'package:plusclouds/src/utils/preferences/app_storage.dart';
 
 /// An API service for making HTTP requests.
@@ -162,8 +163,8 @@ class API {
   /// OAuth password token
   Future<dynamic> oAuthPasswordToken(String username, String password, String grantType) async {
     try {
-      final response =
-          await get("/oauth/password-token?client_id=$clientId&client_secret=$clientSecret&grant_type=$grantType&username=$username&password=$password");
+      final response = await get(
+          "/oauth/password-token?client_id=$authClientId&client_secret=$authClientSecret&grant_type=$grantType&username=$username&password=$password");
       debugPrint("$debugResponse oAuthPasswordToken() Response:  ${response.toString()}");
       AppStorage().accessToken = response['access_token'];
       return response;
@@ -412,6 +413,18 @@ class API {
       return response;
     } catch (error) {
       debugPrint("$debugError Rethrowing getSupportTickets() Error ... ${error.toString()}");
+      rethrow;
+    }
+  }
+
+  /// Get Blog Posts
+  Future<List<BlogData>> getBlogPosts(List<String> tags, bool includeMedia) async {
+    try {
+      final response = await get("/blogs/posts?${tags.isNotEmpty ? "tags=${tags.join(",")}" : ""}${includeMedia ? "&include=media" : ""}");
+      debugPrint("$debugResponse getgetBlogPosts() Response:  ${response.toString()}");
+      return BlogData.fromJsonList(response['data']);
+    } catch (error) {
+      debugPrint("$debugError Rethrowing getBlogPosts() Error ... ${error.toString()}");
       rethrow;
     }
   }

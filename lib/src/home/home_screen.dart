@@ -19,9 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final appProvider = Provider.of<AppProvider>(context, listen: true);
     return Scaffold(
+      //TODO: API TESTING BUTTON
+      /*     floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final response = await API().getBlogPosts(["Partner"], false);
+          print(response[0].body);
+        },
+        child: const Icon(Icons.add),
+      ), */
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF252c34),
         leading: Padding(
           padding: const EdgeInsets.only(left: 18.0),
           child: Image.asset("assets/splash.png"),

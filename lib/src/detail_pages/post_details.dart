@@ -20,7 +20,7 @@ class _PostDetailsState extends State<PostDetails> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                "assets/splash.png",
+                "assets/app/splash.png",
                 width: 40,
                 height: 40,
               ),
@@ -63,7 +63,7 @@ class _PostDetailsState extends State<PostDetails> {
                 ),
               ),
               Container(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 26),
                 child: ListTile(
                   title: Text(blog.user!.fullname!),
                   trailing: Text(DateFormat.yMMMMd().format(blog.createdAt!)),

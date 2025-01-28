@@ -26,14 +26,13 @@ const appPrimaryColor = Color(0xFFf9f9f9);
 ///APP SPECIFIC CONSTANTS
 const containerRadius = 30.0;
 
-final loadingAnimation = Lottie.asset('assets/loading-dots.json');
+final loadingAnimation = Lottie.asset('assets/app/loading-dots.json');
 
-//TODO:API ANIMATIONS
-//final animation404 = Lottie.asset('assets/animation.json');
+//final animation404 = Lottie.asset('assets/app/animation.json');
 
-final apiSuccessAnimation = Lottie.asset('assets/success.json');
+final apiSuccessAnimation = Lottie.asset('assets/app/success.json');
 
-final apiFailAnimation = Lottie.asset('assets/failed.json');
+final apiFailAnimation = Lottie.asset('assets/app/failed.json');
 
 const drawerMainMenuTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.grey);
 

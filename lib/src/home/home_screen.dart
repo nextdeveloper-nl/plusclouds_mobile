@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 18.0),
-          child: Image.asset("assets/splash.png"),
+          child: Image.asset("assets/app/splash.png"),
         ),
         title: const Text(
           'Plusclouds',

@@ -326,7 +326,7 @@ class _AuthScreenState extends State<AuthScreen> {
               SizedBox(
                 height: 160,
                 child: Image.asset(
-                  'assets/splash.png',
+                  'assets/app/splash.png',
                   fit: BoxFit.cover,
                 ),
               ).animate().shake(duration: const Duration(milliseconds: 4000)),
@@ -522,7 +522,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   });
                                   try {
                                     final response = await API.auth().oAuthPasswordToken(email ?? "", _passwordController.text, "Password");
-                                    if (response != null && mounted) {
+                                    if (response != null && context.mounted) {
                                       setState(() {
                                         _isSendingRequest = false;
                                         _isVerifying = false;
@@ -535,7 +535,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     setState(() {
                                       _isSendingRequest = false;
                                     });
-                                    if (mounted) {
+                                    if (context.mounted) {
                                       showAPIFailedDialog(context, "Oops", e.toString());
                                     }
                                   }
